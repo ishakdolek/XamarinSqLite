@@ -39,10 +39,8 @@ namespace AppSqlLite.Helper
 
         public Student Get(int Id)
         {
-            //return _sqLiteConnection.Table<Student>().FirstOrDefault(x => x.Id == Id);
-            return null;
+            return _sqLiteConnection.Table<Student>().Where(x => x.Id== Id).FirstOrDefault();
         }
-
         public void Dispose()
         {
             _sqLiteConnection.Dispose();

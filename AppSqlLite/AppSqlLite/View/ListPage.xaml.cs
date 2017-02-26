@@ -14,8 +14,8 @@ namespace AppSqlLite.View
         public ListPage()
         {
             InitializeComponent();
-            var manager= new SqLiteManeger();
-            var listStudents= new List<Student>();
+            var manager = new SqLiteManeger();
+            var listStudents = new List<Student>();
             listStudents = manager.GetAllStudents().ToList();
             lstSutdents.BindingContext = listStudents;
         }
@@ -26,10 +26,49 @@ namespace AppSqlLite.View
 
         private void Listele_OnClick(object sender, EventArgs e)
         {
+         Refresh();
+        }
+
+        private void Refresh()
+        {
             var manager = new SqLiteManeger();
             var listStudents = new List<Student>();
             listStudents = manager.GetAllStudents().ToList();
             lstSutdents.BindingContext = listStudents;
+
+        }
+
+        private void Delete_OnClicked(object sender, EventArgs e)
+        {
+            var menuItemSelected = (MenuItem)sender;
+            SqLiteManeger _maneger = new SqLiteManeger();
+            var isDeleted = _maneger.Delete(Convert.ToInt32(menuItemSelected.CommandParameter.ToString()));
+            if (isDeleted > 0)
+            {
+                DisplayAlert("Başarılı", "Silindi", "Tamam");
+                Refresh();
+            }
+            else
+            {
+                DisplayAlert("Error", "Silinemedi", "Tamam");
+            }
+        }
+
+        private void Detail_OnClicked(object sender, EventArgs e)
+        {
+            var _manager = new SqLiteManeger();
+            var menuItemSelected = (MenuItem)sender;
+            var selectedStudent = _manager.Get(Convert.ToInt32(menuItemSelected.CommandParameter.ToString()));
+            Navigation.PushAsync(new DetailPage(selectedStudent));
+
+        }
+
+        private void Update_OnClicked(object sender, EventArgs e)
+        {
+            var _manager = new SqLiteManeger();
+            var menuItemSelected = (MenuItem)sender;
+            var selectedStudent = _manager.Get(Convert.ToInt32(menuItemSelected.CommandParameter.ToString()));
+            Navigation.PushAsync(new UpdatePage(selectedStudent));
         }
     }
 }

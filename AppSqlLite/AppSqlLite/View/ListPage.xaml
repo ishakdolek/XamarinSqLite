@@ -12,7 +12,14 @@
     <ListView x:Name="lstSutdents" ItemsSource="{Binding .}">
       <ListView.ItemTemplate>
         <DataTemplate>
-          <TextCell Text="{Binding Name}" Detail="{Binding Detail}"></TextCell>
+          <TextCell Text="{Binding Name}" Detail="{Binding Detail}">
+            <TextCell.ContextActions>
+              <MenuItem CommandParameter="{Binding Id}" Text="Sil" Clicked="Delete_OnClicked"></MenuItem>
+              <MenuItem CommandParameter="{Binding Id}" Text="Detay" Clicked="Detail_OnClicked"></MenuItem>
+              <MenuItem CommandParameter="{Binding Id}" Text="Update" Clicked="Update_OnClicked"></MenuItem>
+            </TextCell.ContextActions>
+          </TextCell>
+         
         </DataTemplate>
       </ListView.ItemTemplate>
     </ListView>

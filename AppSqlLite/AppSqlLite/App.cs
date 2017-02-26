@@ -12,9 +12,7 @@ namespace AppSqlLite
         public static string DbName { get; set; } = "appSample.db3";
         public App()
         {
-
-            MainPage= new NavigationPage(new ListPage());
-
+          MainPage= new NavigationPage(new ListPage());
         }
 
         protected override void OnStart()
